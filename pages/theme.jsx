@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 import ThemeInside from '../components/ThemeInside';
 import ThemeInside2 from '../components/ThemeInside2';
@@ -7,6 +7,7 @@ import ThemeInside2 from '../components/ThemeInside2';
 const Theme = () => {
   return (
     <div>
+      <h2>Theme</h2>
       <Button borderStyle={'double'}>Default</Button>
       <ThemeProvider
         theme={{
@@ -15,8 +16,8 @@ const Theme = () => {
       >
         <Button>Theme</Button>
       </ThemeProvider>
-
       <br />
+      <h2>Function Theme</h2>
       <ThemeProvider
         theme={{
           bg: 'palevioletred',
@@ -29,6 +30,29 @@ const Theme = () => {
           <ThemeInside />
           <ThemeInside2 />
         </ThemeProvider>
+      </ThemeProvider>
+      <br />
+      <h2>Theme Prop</h2>
+      <Button3
+        theme={{
+          main: 'red',
+        }}
+      >
+        No In Theme
+      </Button3>
+      <ThemeProvider
+        theme={{
+          main: 'dodgerblue',
+        }}
+      >
+        <Button3>Deault Theme</Button3>
+        <Button3
+          theme={{
+            main: '#d468ff',
+          }}
+        >
+          Override Theme
+        </Button3>
       </ThemeProvider>
     </div>
   );
@@ -78,3 +102,13 @@ const invertTheme = ({ fg, bg }) => ({
   bg: fg,
   color: 'palevioletred',
 });
+
+// 3. Theme Overrider Or Circumvent Component
+const Button3 = styled.button`
+  color: ${(p) => p.theme.main};
+  border: 2px solid ${(p) => p.theme.main};
+  margin: 1rem;
+  padding: 0.25rem 1rem;
+  border-radius: 3px;
+  background-color: white;
+`;
